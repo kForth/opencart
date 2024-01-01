@@ -29,7 +29,7 @@ h6 {
   font-size: 10.2px;
 }
 a {
-  color: #23a1d1;
+  color: #3083dc;
   text-decoration: none;
 }
 a:hover {
@@ -232,7 +232,7 @@ footer a {
 /* menu */
 #menu {
   background-color: #229ac8;
-  background-image: linear-gradient(to bottom, #23a1d1, #1f90bb);
+  background-image: linear-gradient(to bottom, #3083dc, #2b69ad);
   background-repeat: repeat-x;
   border: 1px solid #1f90bb;
   border-color: #1f90bb #1f90bb #145e7a;
@@ -257,7 +257,7 @@ footer a {
 }
 #menu .dropdown-inner ul li a:hover {
   color: #ffffff;
-  background-image: linear-gradient(to bottom, #23a1d1, #1f90bb);
+  background-image: linear-gradient(to bottom, #3083dc, #2b69ad);
 }
 #menu .dropdown-inner a {
   min-width: 160px;
@@ -282,7 +282,7 @@ footer a {
   text-decoration: none;
   color: #ffffff;
   background-color: #229ac8;
-  background-image: linear-gradient(to bottom, #23a1d1, #1f90bb);
+  background-image: linear-gradient(to bottom, #3083dc, #2b69ad);
   background-repeat: repeat-x;
 }
 #menu #category {
@@ -434,7 +434,7 @@ footer h5 {
 .btn-primary {
   color: #ffffff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  background-image: linear-gradient(to bottom, #23a1d1, #1f90bb);
+  background-image: linear-gradient(to bottom, #3083dc, #2b69ad);
   background-repeat: repeat-x;
   border-color: #1f90bb #1f90bb #145e7a;
 }
@@ -485,7 +485,7 @@ footer h5 {
 .btn-link {
   border-color: rgba(0, 0, 0, 0);
   cursor: pointer;
-  color: #23A1D1;
+  color: #3083dc;
   border-radius: 0;
 }
 .btn-link, .btn-link:active, .btn-link[disabled] {
@@ -608,7 +608,7 @@ footer h5 {
   color: #FFF;
   padding: 6px 12px;
   background-color: #229ac8;
-  background-image: linear-gradient(to bottom, #23a1d1, #1f90bb);
+  background-image: linear-gradient(to bottom, #3083dc, #2b69ad);
   background-repeat: repeat-x;
   border-color: #1f90bb #1f90bb #145e7a;
 }
