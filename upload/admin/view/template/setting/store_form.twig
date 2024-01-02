@@ -67,6 +67,18 @@
                 </div>
               </div>
               <div class="row mb-3">
+                <label for="input-favicon" class="col-sm-2 col-form-label">{{ entry_favicon }}</label>
+                <div class="col-sm-10">
+                  <div class="border rounded d-block text-center" style="max-width: 300px;">
+                    <img src="{{ favicon }}" alt="" title="" id="thumb-favicon" data-oc-placeholder="{{ placeholder }}" class="img-fluid"/> <input type="hidden" name="config_favicon" value="{{ config_favicon }}" id="input-favicon"/>
+                    <div class="d-grid">
+                      <button type="button" data-oc-toggle="image" data-oc-target="#input-favicon" data-oc-thumb="#thumb-favicon" class="btn btn-primary rounded-0"><i class="fa-solid fa-pencil"></i> {{ button_edit }}</button>
+                      <button type="button" data-oc-toggle="clear" data-oc-target="#input-favicon" data-oc-thumb="#thumb-favicon" class="btn btn-warning rounded-0"><i class="fa-regular fa-trash-can"></i> {{ button_clear }}</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
                 <label for="input-theme" class="col-sm-2 col-form-label">{{ entry_theme }}</label>
                 <div class="col-sm-10">
                   <select name="config_theme" id="input-theme" class="form-select">
@@ -670,4 +682,4 @@ $('#input-country').on('change', function() {
 
 $('#input-country').trigger('change');
 //--></script>
-{{ footer }} 
+{{ footer }}

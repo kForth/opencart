@@ -2048,6 +2048,7 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'config', 'config_return_id', '0', 0),
 (0, 'config', 'config_return_status_id', '2', 0),
 (0, 'config', 'config_logo', 'catalog/opencart-logo.png', 0),
+(0, 'config', 'config_favicon', 'catalog/opencart.ico', 0),
 (0, 'config', 'config_image_default_width', '300', 0),
 (0, 'config', 'config_image_default_height', '300', 0),
 (0, 'config', 'config_image_thumb_width', '500', 0),

@@ -140,6 +140,7 @@ $_['entry_return_status']                 = 'Return Status';
 $_['entry_captcha']                       = 'Captcha';
 $_['entry_captcha_page']                  = 'Captcha Page';
 $_['entry_logo']                          = 'Store Logo';
+$_['entry_favicon']                       = 'Site Favicon';
 $_['entry_image_default']                 = 'Default Image Size (W x H)';
 $_['entry_image_category']                = 'Category Image Size (W x H)';
 $_['entry_image_thumb']                   = 'Product Image Thumb Size (W x H)';

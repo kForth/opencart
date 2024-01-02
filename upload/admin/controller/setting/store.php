@@ -454,6 +454,12 @@ class Store extends \Opencart\System\Engine\Controller {
 			$data['config_logo'] = '';
 		}
 
+		if (isset($store_info['config_favicon'])) {
+			$data['config_favicon'] = $store_info['config_favicon'];
+		} else {
+			$data['config_favicon'] = '';
+		}
+
 		$this->load->model('tool/image');
 
 		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', $this->config->get('config_image_default_width'), $this->config->get('config_image_default_height'));
@@ -462,6 +468,12 @@ class Store extends \Opencart\System\Engine\Controller {
 			$data['logo'] = $this->model_tool_image->resize(html_entity_decode($data['config_logo'], ENT_QUOTES, 'UTF-8'), $this->config->get('config_image_default_width'), $this->config->get('config_image_default_height'));
 		} else {
 			$data['logo'] = $data['placeholder'];
+		}
+
+		if (is_file(DIR_IMAGE . html_entity_decode($data['config_favicon'], ENT_QUOTES, 'UTF-8'))) {
+			$data['favicon'] = $this->model_tool_image->resize(html_entity_decode($data['config_favicon'], ENT_QUOTES, 'UTF-8'), $this->config->get('config_image_default_width'), $this->config->get('config_image_default_height'));
+		} else {
+			$data['favicon'] = $data['placeholder'];
 		}
 
 		if (isset($store_info['config_image_category_width'])) {

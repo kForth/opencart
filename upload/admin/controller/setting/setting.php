@@ -350,6 +350,8 @@ class Setting extends \Opencart\System\Engine\Controller {
 		// Images
 		$data['config_logo'] = $this->config->get('config_logo');
 
+		$data['config_favicon'] = $this->config->get('config_favicon');
+
 		$this->load->model('tool/image');
 
 		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', $this->config->get('config_image_default_width'), $this->config->get('config_image_default_height'));
@@ -358,6 +360,12 @@ class Setting extends \Opencart\System\Engine\Controller {
 			$data['logo'] = $this->model_tool_image->resize(html_entity_decode($data['config_logo'], ENT_QUOTES, 'UTF-8'), $this->config->get('config_image_default_width'), $this->config->get('config_image_default_height'));
 		} else {
 			$data['logo'] = $data['placeholder'];
+		}
+
+		if (is_file(DIR_IMAGE . html_entity_decode($data['config_favicon'], ENT_QUOTES, 'UTF-8'))) {
+			$data['favicon'] = $this->model_tool_image->resize(html_entity_decode($data['config_favicon'], ENT_QUOTES, 'UTF-8'), $this->config->get('config_image_default_width'), $this->config->get('config_image_default_height'));
+		} else {
+			$data['favicon'] = $data['placeholder'];
 		}
 
 		// Image

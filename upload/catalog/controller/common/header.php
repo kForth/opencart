@@ -53,6 +53,12 @@ class Header extends \Opencart\System\Engine\Controller {
 			$data['logo'] = '';
 		}
 
+		if (is_file(DIR_IMAGE . $this->config->get('config_favicon'))) {
+			$data['favicon'] = $this->config->get('config_url') . 'image/' . $this->config->get('config_favicon');
+		} else {
+			$data['favicon'] = '';
+		}
+
 		$this->load->language('common/header');
 
 		// Wishlist
