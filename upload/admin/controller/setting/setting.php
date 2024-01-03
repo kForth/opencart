@@ -363,9 +363,9 @@ class Setting extends \Opencart\System\Engine\Controller {
 		}
 
 		if (is_file(DIR_IMAGE . html_entity_decode($data['config_favicon'], ENT_QUOTES, 'UTF-8'))) {
-			$data['favicon'] = $this->model_tool_image->resize(html_entity_decode($data['config_favicon'], ENT_QUOTES, 'UTF-8'), $this->config->get('config_image_default_width'), $this->config->get('config_image_default_height'));
+			$data['favicon'] = $this->model_tool_image->resize(html_entity_decode($data['config_favicon'], ENT_QUOTES, 'UTF-8'), 16, 16);
 		} else {
-			$data['favicon'] = $data['placeholder'];
+			$data['favicon'] = $this->model_tool_image->resize('no_image.png', 16, 16);
 		}
 
 		// Image
