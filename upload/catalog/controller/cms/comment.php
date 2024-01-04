@@ -307,7 +307,7 @@ class Comment extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		$this->load->model('cms/article');
+	 	$this->load->model('cms/article');
 
 		$article_info = $this->model_cms_article->getArticle($article_id);
 
@@ -325,6 +325,26 @@ class Comment extends \Opencart\System\Engine\Controller {
 
 		if ((oc_strlen($this->request->post['comment']) < 2) || (oc_strlen($this->request->post['comment']) > 1000)) {
 			$json['error']['comment'] = $this->language->get('error_comment');
+		}
+
+		if ($this->config->get('config_comment_interval')) {
+			$filter_data = [
+				'customer_id' => $this->customer->getId(),
+				'sort'        => 'date_added',
+				'order'       => 'DESC',
+				'start'       => 0,
+				'limit'       => 1
+			];
+
+			$results = $this->model_cms_article->getComments($article_id, $filter_data);
+
+			foreach ($results as $result) {
+				if (strtotime('+' . $this->config->get('config_comment_interval') . ' minute', strtotime($result['date_added'])) >= time()) {
+					$json['error']['warning'] = sprintf($this->language->get('error_interval'), $this->config->get('config_comment_interval'));
+
+					break;
+				}
+			}
 		}
 
 		// Captcha
@@ -345,35 +365,34 @@ class Comment extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			$comment_approve = (int)$this->config->get('config_comment_approve');
-
 			// Anti-Spam
 			$this->load->model('cms/antispam');
 
 			$spam = $this->model_cms_antispam->getSpam($this->request->post['comment']);
 
-			if (!$this->customer->isCommenter() && $spam) {
-				$status = 0;
-			} else {
+			// If customer has been approved to make comments without moderation
+			if ($this->customer->isCommenter()) {
 				$status = 1;
+				// If auto approve comments
+			} elseif ($this->config->get('config_comment_approve') && !$spam) {
+				$status = 1;
+			} else {
+				$status = 0;
 			}
 
 			$comment_data = $this->request->post + [
-				'parent_id' => $parent_id,
-				'ip'        => $this->request->server['REMOTE_ADDR'],
-				'status'    => $status
+				'customer_id' => $this->customer->getId(),
+				'parent_id'   => $parent_id,
+				'ip'          => $this->request->server['REMOTE_ADDR'],
+				'status'      => $status
 			];
 
 			$this->model_cms_article->addComment($article_id, $comment_data);
 
-			if (!$status) {
-				$json['success'] = $this->language->get('text_queue');
+			if ($status) {
+				$json['success'] = $this->language->get('text_success');
 			} else {
-				if ($comment_approve) {
-					$json['success'] = $this->language->get('text_success_comment');
-				} else {
-					$json['success'] = $this->language->get('text_success_comment_approve');
-				}
+				$json['success'] = $this->language->get('text_queue');
 			}
 		}
 
@@ -415,11 +434,11 @@ class Comment extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_article');
 		}
 
-		// Comment
+		// Comment to rate
 		$article_comment_info = $this->model_cms_article->getComment($article_comment_id);
 
 		if (!$article_comment_info) {
-			$json['error'] = $this->language->get('error_comment');
+			$json['error'] = $this->language->get('error_article_comment');
 		}
 
 		if (!$this->customer->isLogged() && !$this->config->get('config_comment_guest')) {
@@ -429,11 +448,13 @@ class Comment extends \Opencart\System\Engine\Controller {
 		if (!$json) {
 			// Anti-Spam
 			$rating_data = $this->request->post + [
-				'rating' => (bool)$this->request->get['rating'],
-				'ip'     => $this->request->server['REMOTE_ADDR']
+				'article_comment_id' => $article_comment_id,
+				'customer_id'        => $this->customer->getId(),
+				'rating'             => (bool)$this->request->get['rating'],
+				'ip'                 => $this->request->server['REMOTE_ADDR']
 			];
 
-			$this->load->model('cms/antispam');
+			$this->load->model('cms/article');
 
 			$this->model_cms_article->addRating($article_id, $rating_data);
 
